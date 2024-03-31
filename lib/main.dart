@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Instagram Clone',
       theme: MyAppTheme.lightTheme,
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

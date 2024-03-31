@@ -5,6 +5,7 @@ class AppColors {
   static const Color grey = Color(0xFFDBDBDB);
   static const Color textPrimary = Color(0xFF000000);
   static const Color textSecondary = Color(0xFF8E8E8E);
+  static const Color red = Color(0xFFFF0000);
 }
 
 class MyAppTheme {

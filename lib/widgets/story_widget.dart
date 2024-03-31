@@ -22,14 +22,6 @@ class Story extends StatelessWidget {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
               ),
-              /* boxShadow: [
-                BoxShadow(
-                  color: Colors.black,
-                  spreadRadius: 1,
-                  blurRadius: 9,
-                  offset: Offset(0, 3),
-                )
-              ], */
             ),
             child: Padding(
               padding: const EdgeInsets.all(3),

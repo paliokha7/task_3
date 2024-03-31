@@ -1,25 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone_task_3/theme/app_colors.dart';
 
-class Post extends StatelessWidget {
-  final String username;
-  final String profilePicture;
-  final String postImage;
-  final int likes;
+class Post extends StatefulWidget {
+  final File? postImage;
   final String text;
-  final int date;
-  final int views;
 
-  const Post(
-      {super.key,
-      required this.username,
-      required this.profilePicture,
-      required this.postImage,
-      required this.likes,
-      required this.text,
-      required this.date,
-      required this.views});
+  const Post({
+    super.key,
+    required this.postImage,
+    required this.text,
+  });
+
+  @override
+  State<Post> createState() => _PostState();
+}
+
+class _PostState extends State<Post> {
+  bool isLiked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +34,20 @@ class Post extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
                       backgroundImage: NetworkImage(
-                        profilePicture,
+                        "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 10,
                     ),
                     Text(
-                      username,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      "Emma",
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -62,8 +62,8 @@ class Post extends StatelessWidget {
           SizedBox(
             height: photoSize,
             width: double.infinity,
-            child: Image.network(
-              postImage,
+            child: Image.file(
+              widget.postImage!,
               fit: BoxFit.cover,
             ),
           ),
@@ -71,19 +71,23 @@ class Post extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(
-                  'assets/like.svg',
-                  height: 25,
-                  width: 25,
+                icon: Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? AppColors.red : AppColors.textPrimary,
+                  size: 30,
                 ),
+                onPressed: () {
+                  setState(() {
+                    isLiked = !isLiked;
+                  });
+                },
               ),
               IconButton(
                 onPressed: () {},
                 icon: SvgPicture.asset(
-                  'assets/comment.svg',
-                  height: 30,
-                  width: 30,
+                  'assets/comment-icon.svg',
+                  height: 25,
+                  width: 25,
                 ),
               ),
               IconButton(
@@ -114,9 +118,9 @@ class Post extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '$likes Likes',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                const Text(
+                  '121 Likes',
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 5,
@@ -124,9 +128,9 @@ class Post extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(
-                        text: username,
-                        style: const TextStyle(
+                      const TextSpan(
+                        text: "Emma",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary,
                         ),
@@ -137,7 +141,7 @@ class Post extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: text,
+                        text: widget.text,
                         style: const TextStyle(
                           color: AppColors.textPrimary,
                         ),
@@ -150,16 +154,16 @@ class Post extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Text(
-                  'View $views Comments ',
-                  style: const TextStyle(color: AppColors.textSecondary),
+                const Text(
+                  'View 12 Comments ',
+                  style: TextStyle(color: AppColors.textSecondary),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Text(
-                  '$date days ago',
-                  style: const TextStyle(color: AppColors.textSecondary),
+                const Text(
+                  '3 days ago',
+                  style: TextStyle(color: AppColors.textSecondary),
                 )
               ],
             ),
